@@ -1,5 +1,6 @@
 ﻿using Moq;
 using MvcStore.Domain.Abstract;
+using MvcStore.Domain.Concrete;
 using MvcStore.Domain.Entities;
 using Ninject;
 using System;
@@ -22,15 +23,17 @@ namespace MvcStore.WebUI.Infrastructure
 
         private void AddBindings()
         {
-            Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns(new List<Products>
-            {
-                new Products { Name = "Football", Price = 25 },
-                new Products { Name = "Surf board", Price = 179 },
-                new Products { Name = "Running shoes", Price = 95 }
-            });
+            //Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            //mock.Setup(m => m.Products).Returns(new List<Product>
+            //{
+            //    new Product { Name = "Football", Price = 25 },
+            //    new Product { Name = "Surf board", Price = 179 },
+            //    new Product { Name = "Running shoes", Price = 95 }
+            //});
 
-            kernel.Bind<IProductRepository>().ToConstant(mock.Object);
+            //kernel.Bind<IProductRepository>().ToConstant(mock.Object);
+
+            kernel.Bind<IProductRepository>().To<EFProductRepository>();
         }
 
         public object GetService(Type serviceType)
